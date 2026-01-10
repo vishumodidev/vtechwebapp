@@ -4,6 +4,7 @@ export const navItems = [
   { label: "Courses Offered", path: "/courses" },
   { label: "Services", path: "/services" },
   { label: "Placements", path: "/placements" },
+  { label: "Alumina", path: "/Alumina" },
   { label: "FAQ", path: "/faq" },
   { label: "Contact Us", path: "/contact" },
 ];
