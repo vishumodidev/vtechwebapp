@@ -1,18 +1,12 @@
-import { Helmet } from "react-helmet-async";
-import CoursesSection from "../components/courses/CourseSection";
+import CoursesGrid from "../components/courses/CoursesGrid";
 
 export default function Courses() {
   return (
-    <>
-      <Helmet>
-        <title>Courses | VTech Integrated Solutions</title>
-        <meta
-          name="description"
-          content="Explore industry-aligned IT courses with hands-on training and placement support."
-        />
-      </Helmet>
-
-      <CoursesSection />
-    </>
+    <section className="py-16">
+      <div className="max-w-7xl mx-auto px-4">
+        <h1 className="text-3xl font-bold mb-8">Our Courses</h1>
+        <CoursesGrid />
+      </div>
+    </section>
   );
 }

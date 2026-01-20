@@ -38,7 +38,7 @@ export default function FAQ() {
   };
 
   return (
-    <section className="bg-white py-20 min-h-screen">
+    <section id="faq" className="bg-white py-20 min-h-screen">
       <div
         ref={ref}
         className={`max-w-5xl mx-auto px-4 animate-scroll ${
@@ -46,17 +46,23 @@ export default function FAQ() {
         }`}
       >
         {/* Heading */}
-        <div className="text-center mb-12">
-          <span className="inline-block mb-3 px-4 py-1 text-sm font-semibold rounded-full bg-purple-100 text-purple-700">
-            FAQs
-          </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-gray-600">
-            Everything you need to know before getting started.
-          </p>
-        </div>
+        <div className="mt-14 mb-8 text-center">
+  <button
+    className="
+      inline-flex items-center justify-center
+      px-8 py-3
+      rounded-full
+      bg-gradient-to-r from-teal-600 to-teal-500
+      text-white font-semibold
+      shadow-[0_10px_30px_rgba(13,148,136,0.35)]
+      hover:shadow-[0_15px_40px_rgba(13,148,136,0.45)]
+      transition-all duration-300 ease-out
+    "
+  >
+    FAQ's
+  </button>
+</div>
+
 
         {/* FAQ Items */}
         <div className="space-y-5">

@@ -1,10 +1,11 @@
+// src/data/navigation.js
 export const navItems = [
-  { label: "Home Page", path: "/" },
-  { label: "About Us", path: "/about" },
-  { label: "Courses Offered", path: "/courses" },
-  { label: "Services", path: "/services" },
-  { label: "Placements", path: "/placements" },
-  { label: "Alumina", path: "/Alumina" },
-  { label: "FAQ", path: "/faq" },
-  { label: "Contact Us", path: "/contact" },
+  { label: "Home", sectionId: "top" },
+  { label: "About Us", sectionId: "about" },
+  { label: "Courses", sectionId: "courses" },
+  { label: "Services", sectionId: "services" },
+  { label: "Placements", sectionId: "placements" },
+  { label: "Alumni", sectionId: "alumni" },
+  { label: "FAQ", sectionId: "faq" },
+  { label: "Contact Us", sectionId: "contact" },
 ];

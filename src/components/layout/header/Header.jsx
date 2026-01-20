@@ -1,65 +1,162 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Logo from "./Logo";
-import TopNav from "./TopNav";
-import HeaderActions from "./HeaderActions";
 import { navItems } from "../../../data/navigation";
 
 export default function Header() {
-  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [admissionsOpen, setAdmissionsOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  // CTA button style (UNCHANGED)
+  const blueBtn =
+    "relative overflow-hidden px-4 py-2 rounded-md bg-blue-600 text-white text-sm font-semibold " +
+    "animate-soft-bounce animate-fire cta-wave cta-shine " +
+    "hover:bg-blue-700 hover:scale-105 active:scale-95 transition-all duration-300";
+
+  // 🔥 SCROLL-ONLY HANDLER (HEADER PURPOSE)
+  const handleNavClick = ({ sectionId }) => {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+    setMenuOpen(false);
+  };
 
   return (
-    <header className="bg-white shadow sticky top-0 z-50">
-      {/* Top Bar */}
-      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Logo />
+    <header className="sticky top-0 z-50 bg-white shadow-sm mb-6">
+      <div className="max-w-7xl mx-auto px-4">
 
-        {/* Desktop Nav */}
-        <TopNav />
+        {/* ================= TOP ROW ================= */}
+        <div className="flex items-center justify-between py-3">
 
-        {/* Desktop CTA */}
-        <div className="hidden md:block">
-          <HeaderActions />
+          {/* Logo */}
+          <Logo />
+
+          {/* ================= CTA BUTTONS (DESKTOP) ================= */}
+          <div className="hidden md:flex items-center gap-2 relative">
+
+            {/* Admissions Dropdown */}
+            <div className="relative">
+              <button
+                className={`${blueBtn} flex items-center gap-2`}
+                onClick={() => setAdmissionsOpen(!admissionsOpen)}
+              >
+                Admissions 26
+                <span className="text-xs">▼</span>
+              </button>
+
+              {admissionsOpen && (
+                <div className="absolute right-0 mt-2 w-44 bg-white rounded-md shadow-lg border z-50">
+                  <button
+                    onClick={() => {
+                      navigate("/contact");
+                      setAdmissionsOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-sm hover:bg-blue-50"
+                  >
+                    Admissions 26
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      navigate("/contact");
+                      setAdmissionsOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-sm hover:bg-blue-50"
+                  >
+                    Admissions 25
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Announcement */}
+            <button
+              className={blueBtn}
+              onClick={() => navigate("/announcements")}
+            >
+              Announcement
+            </button>
+
+            {/* Apply Now */}
+            <button
+              className={blueBtn}
+              onClick={() => navigate("/apply")}
+            >
+              Apply Now
+            </button>
+
+          </div>
+
+          {/* ================= MOBILE MENU TOGGLE ================= */}
+          <button
+            className="md:hidden text-2xl text-gray-800"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle Menu"
+          >
+            ☰
+          </button>
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden text-2xl"
-          onClick={() => setOpen(!open)}
-        >
-          ☰
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden transition-all duration-300 overflow-hidden ${
-          open ? "max-h-screen" : "max-h-0"
-        }`}
-      >
-        <nav className="bg-white border-t px-4 py-4 space-y-2">
+        {/* ================= NAV ITEMS (DESKTOP) ================= */}
+        <div className="hidden md:flex justify-center gap-8 pb-2">
           {navItems.map((item) => (
-            <NavLink
+            <button
               key={item.label}
-              to={item.path}
-              onClick={() => setOpen(false)}
-              className={({ isActive }) =>
-                `block py-2 font-medium ${
-                  isActive
-                    ? "text-teal-600 border-l-4 border-teal-600 pl-3"
-                    : "text-gray-700 pl-4"
-                }`
-              }
+              onClick={() => handleNavClick(item)}
+              className="font-medium text-gray-700 hover:text-blue-600 transition"
             >
               {item.label}
-            </NavLink>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ================= MOBILE NAV ================= */}
+      <div
+        className={`md:hidden transition-all duration-300 overflow-hidden ${
+          menuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <nav className="bg-white border-t px-4 py-4 space-y-3">
+
+          {/* Scroll-only menu */}
+          {navItems.map((item) => (
+            <button
+              key={item.label}
+              onClick={() => handleNavClick(item)}
+              className="block w-full text-left py-2 font-medium text-gray-700 hover:text-blue-600"
+            >
+              {item.label}
+            </button>
           ))}
 
-          {/* Enquire Button */}
-          <button className="mt-4 w-full bg-teal-600 text-white py-3 rounded-md font-semibold">
-            Enquire Now
+          <hr />
+
+          {/* ================= MOBILE CTA BUTTONS ================= */}
+          <button
+            className="w-full py-2 rounded-md border border-blue-600 text-blue-600 font-semibold"
+            onClick={() => navigate("/contact")}
+          >
+            🎓 Alumni Contact
           </button>
+
+          <button
+            className="w-full py-2 rounded-md bg-blue-600 text-white font-semibold"
+            onClick={() => navigate("/announcements")}
+          >
+            Announcement
+          </button>
+
+          <button
+            className="w-full py-3 rounded-xl bg-blue-700 text-white font-bold"
+            onClick={() => navigate("/apply")}
+          >
+            🚀 Apply Now
+          </button>
+
         </nav>
       </div>
     </header>

@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import useScrollAnimation from "../common/useScrollAnimation";
 
 export default function Placements() {
+  const navigate = useNavigate();
+
   const placements = [
     {
       name: "Rahul Sharma",
@@ -30,61 +33,44 @@ export default function Placements() {
       package: "₹5.8 LPA",
       image: "https://i.pravatar.cc/100?img=4",
     },
-    {
-      name: "Amit Joshi",
-      company: "Capgemini",
-      role: "Java Developer",
-      package: "₹6.0 LPA",
-      image: "https://i.pravatar.cc/100?img=5",
-    },
-    {
-      name: "Priya Singh",
-      company: "Cognizant",
-      role: "UI Developer",
-      package: "₹7.5 LPA",
-      image: "https://i.pravatar.cc/100?img=6",
-    },
-    {
-      name: "Vikas Mehta",
-      company: "HCL",
-      role: "DevOps Engineer",
-      package: "₹8.4 LPA",
-      image: "https://i.pravatar.cc/100?img=7",
-    },
-    {
-      name: "Sneha Rao",
-      company: "IBM",
-      role: "Data Analyst",
-      package: "₹9.0 LPA",
-      image: "https://i.pravatar.cc/100?img=8",
-    },
   ];
 
   const [headingRef, headingVisible] = useScrollAnimation();
 
   return (
-    <section className="bg-gray-50 py-16 md:py-20 lg:py-24">
+    <section
+      id="placements"
+      className="bg-gray-50 py-16 md:py-20 lg:py-24"
+    >
       <div className="max-w-7xl mx-auto px-4">
 
-        {/* Heading */}
+        {/* ================= HEADING ================= */}
         <div
           ref={headingRef}
-          className={`text-center mb-14 animate-scroll ${
+          className={`mb-12 text-center animate-scroll ${
             headingVisible ? "show" : ""
           }`}
         >
-          <span className="inline-block mb-3 px-4 py-1 text-sm font-semibold rounded-full bg-teal-100 text-teal-700">
+          <span
+            className="
+              inline-flex items-center justify-center
+              px-8 py-3
+              rounded-full
+              bg-gradient-to-r from-teal-600 to-teal-500
+              text-white font-semibold
+              shadow-[0_10px_30px_rgba(13,148,136,0.35)]
+            "
+          >
             Placements
           </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
-            Our Successful Placement Stories
-          </h2>
-          <p className="max-w-3xl mx-auto text-gray-600">
-            Real students. Real companies. Real career outcomes.
+
+          <p className="mt-4 max-w-2xl mx-auto text-gray-600">
+            Our students are placed in top IT companies with competitive
+            salary packages.
           </p>
         </div>
 
-        {/* Placement Cards */}
+        {/* ================= PLACEMENT CARDS ================= */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {placements.map((item, index) => {
             const [cardRef, cardVisible] = useScrollAnimation();
@@ -93,9 +79,9 @@ export default function Placements() {
               <div
                 key={index}
                 ref={cardRef}
-                className={`bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-lg transition-all duration-300 animate-scroll ${
-                  cardVisible ? "show" : ""
-                }`}
+                className={`bg-white rounded-2xl p-6 text-center shadow-sm
+                  hover:shadow-lg transition-all duration-300
+                  animate-scroll ${cardVisible ? "show" : ""}`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 {/* Image */}
@@ -126,6 +112,23 @@ export default function Placements() {
               </div>
             );
           })}
+        </div>
+
+        {/* ================= VIEW MORE ================= */}
+        <div className="mt-14 text-center">
+          <button
+            onClick={() => navigate("/placements")}
+            className="
+              inline-flex items-center gap-2
+              px-8 py-3
+              rounded-full
+              font-semibold text-white
+              bg-teal-600 hover:bg-teal-700
+              transition
+            "
+          >
+            View More Placements →
+          </button>
         </div>
 
       </div>

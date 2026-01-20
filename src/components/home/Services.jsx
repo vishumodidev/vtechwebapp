@@ -3,59 +3,52 @@ import useScrollAnimation from "../common/useScrollAnimation";
 export default function Services() {
   const services = [
     {
-      title: "Career-Oriented Training Programs",
+      title: "Training & Placements",
+      tagline: "From Campus to Career — We Make You Job-Ready.",
       icon: "🎓",
-      desc:
-        "Specialized programs designed to bridge the gap between academics and industry.",
       points: [
-        "Java, Python, Cloud, AI, DevOps",
-        "Soft skills & interview preparation",
-        "Live projects & internships",
+        "Industry-ready programs aligned with corporate needs",
+        "Resume building & interview preparation",
+        "Technical + soft skills development",
+        "Campus-to-corporate transition support",
       ],
+      cta: "Start Your Journey →",
     },
     {
-      title: "Hire-Train-Deploy Model",
-      icon: "🚀",
-      desc:
-        "Our flagship model delivering job-ready talent to companies.",
+      title: "Corporate Training",
+      tagline: "Empowering Teams, Elevating Performance.",
+      icon: "🏢",
       points: [
-        "Hire promising candidates",
-        "Customized industry training",
-        "Direct deployment to projects",
+        "Customized modules for organizations",
+        "Employee productivity & collaboration",
+        "On-site, online & hybrid delivery",
+        "AI, analytics, agile & digital skills",
       ],
+      cta: "Request a Proposal →",
     },
     {
-      title: "Finishing School for Engineers",
-      icon: "🧠",
-      desc:
-        "We prepare graduates to be professional, confident, and employable.",
-      points: [
-        "Personal mentorship",
-        "Industry-aligned curriculum",
-        "Placement-ready preparation",
-      ],
-    },
-    {
-      title: "Corporate Talent Solutions",
+      title: "Staffing Solutions",
+      tagline: "Right Talent, Right Time.",
       icon: "🤝",
-      desc:
-        "Scalable workforce solutions for modern enterprises.",
       points: [
-        "Pre-trained talent acquisition",
-        "Customized training modules",
-        "Upskilling & reskilling teams",
+        "Pre-screened qualified candidates",
+        "Contract & permanent staffing",
+        "End-to-end recruitment support",
+        "Expertise in niche roles",
       ],
+      cta: "Hire With Us →",
     },
     {
-      title: "Pan-India Placement Services",
-      icon: "🌐",
-      desc:
-        "A strong placement ecosystem across India.",
+      title: "Upskilling Programs",
+      tagline: "Stay Ahead, Stay Relevant.",
+      icon: "📈",
       points: [
-        "12,000+ student placements",
-        "IT firms & startup partnerships",
-        "Transparent placement tracking",
+        "Short-term courses & certifications",
+        "Career advancement focused training",
+        "Technology + soft skills balance",
+        "Adaptability for fast-changing roles",
       ],
+      cta: "Explore Courses →",
     },
   ];
 
@@ -63,7 +56,7 @@ export default function Services() {
   const [headingRef, headingVisible] = useScrollAnimation();
 
   return (
-    <section className="bg-[#FDF1EB] py-16 md:py-20 lg:py-24">
+    <section id="services" className="bg-blue-900 py-16 md:py-20 lg:py-24">
       <div className="max-w-7xl mx-auto px-4">
 
         {/* ===== Heading ===== */}
@@ -73,22 +66,35 @@ export default function Services() {
             headingVisible ? "show" : ""
           }`}
         >
-          <span className="inline-block mb-3 px-4 py-1 text-sm font-semibold rounded-full bg-orange-100 text-orange-600">
+         <div className="mt-14 mb-8">
+          <button
+            className="
+              inline-flex items-center justify-center
+              px-8 py-3
+              rounded-full
+              bg-gradient-to-r from-teal-600 to-teal-500
+              text-white font-semibold
+              shadow-[0_10px_30px_rgba(13,148,136,0.35)]
+              hover:shadow-[0_15px_40px_rgba(13,148,136,0.45)]
+              transition-all duration-300 ease-out
+            "
+          >
             Our Services
-          </span>
+          </button>
+        </div>
 
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
             Empowering Careers. Enabling Businesses.
           </h2>
 
-          <p className="max-w-3xl mx-auto text-gray-600">
-            From skill development to large-scale hiring, VTech delivers
-            outcome-driven solutions for students and enterprises.
+          <p className="max-w-3xl mx-auto text-white">
+            From training and placements to corporate learning and staffing,
+            VTech delivers end-to-end workforce solutions.
           </p>
         </div>
 
-        {/* ===== Service Cards ===== */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* ===== Service Cards (2x2 Desktop) ===== */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {services.map((service, index) => {
             const [cardRef, cardVisible] = useScrollAnimation();
 
@@ -96,22 +102,26 @@ export default function Services() {
               <div
                 key={index}
                 ref={cardRef}
-                className={`bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 animate-scroll ${
+                className={`bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 animate-scroll ${
                   cardVisible ? "show" : ""
                 }`}
                 style={{ transitionDelay: `${index * 120}ms` }}
               >
+                {/* Icon */}
                 <div className="text-4xl mb-4">{service.icon}</div>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                {/* Title */}
+                <h3 className="text-xl font-bold text-gray-900 mb-1">
                   {service.title}
                 </h3>
 
-                <p className="text-gray-600 mb-4 text-sm leading-relaxed">
-                  {service.desc}
+                {/* Tagline */}
+                <p className="text-sm font-semibold text-teal-600 mb-4">
+                  {service.tagline}
                 </p>
 
-                <ul className="space-y-2 text-sm text-gray-700">
+                {/* Points */}
+                <ul className="space-y-2 text-sm text-gray-700 mb-6">
                   {service.points.map((point, i) => (
                     <li key={i} className="flex gap-2">
                       <span className="text-orange-500 font-semibold">✔</span>
@@ -119,6 +129,21 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
+
+                {/* CTA */}
+                <button className="
+                  inline-flex items-center
+                  text-sm font-semibold
+                  text-white
+                  px-6 py-3
+                  rounded-full
+                  bg-gradient-to-r from-teal-600 to-teal-500
+                  shadow-md hover:shadow-lg
+                  hover:scale-[1.03]
+                  transition-all
+                ">
+                  {service.cta}
+                </button>
               </div>
             );
           })}

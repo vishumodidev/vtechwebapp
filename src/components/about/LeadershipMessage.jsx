@@ -1,38 +1,30 @@
-import { motion } from "framer-motion";
+import useScrollAnimation from "../common/useScrollAnimation";
 import { leadershipMessage } from "../../data/aboutData";
 
 export default function LeadershipMessage() {
+  const [ref, visible] = useScrollAnimation();
+
   return (
     <section className="bg-gray-50 py-14 overflow-hidden">
-      <motion.div
-        className="max-w-4xl mx-auto text-center px-4"
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-      >
-        {/* Heading */}
-        <motion.h3
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-2xl font-bold mb-4 text-gray-900"
-        >
-          Leadership Message
-        </motion.h3>
+      <div className="max-w-4xl mx-auto px-4 text-center">
 
-        {/* Quote */}
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-gray-700 italic text-lg leading-relaxed"
+        {/* Scroll animation wrapper */}
+        <div
+          ref={ref}
+          className={`animate-scroll ${visible ? "show" : ""}`}
         >
-          “{leadershipMessage}”
-        </motion.p>
-      </motion.div>
+          {/* Heading */}
+          <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
+            Leadership Message
+          </h3>
+
+          {/* Quote */}
+          <p className="text-gray-700 italic text-base md:text-lg leading-relaxed">
+            “{leadershipMessage}”
+          </p>
+        </div>
+
+      </div>
     </section>
   );
 }

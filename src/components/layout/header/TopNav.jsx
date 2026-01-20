@@ -3,7 +3,7 @@ import { navItems } from "../../../data/navigation";
 
 export default function TopNav() {
   return (
-    <nav className="hidden md:flex gap-6">
+    <nav className="hidden md:flex gap-3">
       {navItems.map((item) => (
         <NavLink
           key={item.label}
