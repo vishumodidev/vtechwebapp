@@ -1,54 +1,76 @@
 import useScrollAnimation from "../common/useScrollAnimation";
+import { ArrowRight, Briefcase, Users, LineChart, ShieldCheck } from "lucide-react";
+
+import { useNavigate, Link } from "react-router-dom"; // Import useNavigate and Link
 
 export default function Services() {
+  const navigate = useNavigate(); // Hook
+
   const services = [
     {
       title: "Training & Placements",
       tagline: "From Campus to Career — We Make You Job-Ready.",
-      icon: "🎓",
+      icon: <Briefcase size={40} className="text-blue-600" />,
+      bg: "bg-blue-50",
+      accent: "text-blue-600",
+      buttonBg: "bg-blue-600",
+      path: "/training-placements", // Linked Path
       points: [
-        "Industry-ready programs aligned with corporate needs",
-        "Resume building & interview preparation",
-        "Technical + soft skills development",
-        "Campus-to-corporate transition support",
+        "Industry-ready programs",
+        "Resume building & interview prep",
+        "Technical + soft skills",
+        "Campus-to-corporate transition",
       ],
-      cta: "Start Your Journey →",
+      creator: "VTech Placement Team",
     },
+    // ... (other services remain unchanged)
     {
       title: "Corporate Training",
       tagline: "Empowering Teams, Elevating Performance.",
-      icon: "🏢",
+      icon: <LineChart size={40} className="text-purple-600" />,
+      bg: "bg-purple-50",
+      accent: "text-purple-600",
+      buttonBg: "bg-purple-600",
+      path: "/corporate-training",
       points: [
-        "Customized modules for organizations",
-        "Employee productivity & collaboration",
+        "Customized organizational modules",
+        "Employee productivity booster",
         "On-site, online & hybrid delivery",
-        "AI, analytics, agile & digital skills",
+        "AI, analytics & digital skills",
       ],
-      cta: "Request a Proposal →",
+      creator: "Corporate L&D Experts",
     },
     {
       title: "Staffing Solutions",
       tagline: "Right Talent, Right Time.",
-      icon: "🤝",
+      icon: <Users size={40} className="text-pink-600" />,
+      bg: "bg-pink-50",
+      accent: "text-pink-600",
+      buttonBg: "bg-pink-600",
+      path: "/staffing-solutions",
       points: [
         "Pre-screened qualified candidates",
         "Contract & permanent staffing",
         "End-to-end recruitment support",
         "Expertise in niche roles",
       ],
-      cta: "Hire With Us →",
+      creator: "HR Solutions Group",
     },
     {
       title: "Upskilling Programs",
       tagline: "Stay Ahead, Stay Relevant.",
-      icon: "📈",
+      icon: <ShieldCheck size={40} className="text-orange-600" />,
+      bg: "bg-orange-50",
+      accent: "text-orange-600",
+      buttonBg: "bg-orange-600",
+      path: "/upskilling-programs",
       points: [
         "Short-term courses & certifications",
-        "Career advancement focused training",
-        "Technology + soft skills balance",
-        "Adaptability for fast-changing roles",
+        "Career advancement training",
+        "Tech + soft skills balance",
+        "Adaptability for fast roles",
       ],
-      cta: "Explore Courses →",
+      creator: "Certification Board",
     },
   ];
 
@@ -56,45 +78,34 @@ export default function Services() {
   const [headingRef, headingVisible] = useScrollAnimation();
 
   return (
-    <section id="services" className="bg-blue-900 py-16 md:py-20 lg:py-24">
-      <div className="max-w-7xl mx-auto px-4">
+    <section id="services" className="bg-white py-16 md:py-24">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8">
 
         {/* ===== Heading ===== */}
         <div
           ref={headingRef}
-          className={`text-center mb-14 animate-scroll ${
+          className={`text-center mb-16 animate-scroll ${
             headingVisible ? "show" : ""
           }`}
         >
-         <div className="mt-14 mb-8">
-          <button
-            className="
-              inline-flex items-center justify-center
-              px-8 py-3
-              rounded-full
-              bg-gradient-to-r from-teal-600 to-teal-500
-              text-white font-semibold
-              shadow-[0_10px_30px_rgba(13,148,136,0.35)]
-              hover:shadow-[0_15px_40px_rgba(13,148,136,0.45)]
-              transition-all duration-300 ease-out
-            "
-          >
-            Our Services
-          </button>
-        </div>
+          <div className="mb-6">
+             <span className="px-4 py-1.5 rounded-full bg-blue-100 text-blue-700 font-semibold text-sm tracking-wide uppercase">
+                Our Expertise
+             </span>
+          </div>
 
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-            Empowering Careers. Enabling Businesses.
+          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+            Services We Offer
           </h2>
 
-          <p className="max-w-3xl mx-auto text-white">
+          <p className="max-w-2xl mx-auto text-lg text-slate-600">
             From training and placements to corporate learning and staffing,
             VTech delivers end-to-end workforce solutions.
           </p>
         </div>
 
-        {/* ===== Service Cards (2x2 Desktop) ===== */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        {/* ===== Service Cards (Grid) ===== */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {services.map((service, index) => {
             const [cardRef, cardVisible] = useScrollAnimation();
 
@@ -102,48 +113,67 @@ export default function Services() {
               <div
                 key={index}
                 ref={cardRef}
-                className={`bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 animate-scroll ${
-                  cardVisible ? "show" : ""
-                }`}
-                style={{ transitionDelay: `${index * 120}ms` }}
+                className={`group relative rounded-3xl p-6 sm:p-8 transition-all duration-500 hover:shadow-lg animate-scroll ${
+                  service.bg
+                } ${cardVisible ? "show" : ""}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
               >
-                {/* Icon */}
-                <div className="text-4xl mb-4">{service.icon}</div>
+                <div className="flex flex-col sm:flex-row items-start gap-6">
+                  
+                  {/* Left: Illustration / Icon Area */}
+                  <div className="flex-shrink-0 w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500">
+                    {service.icon}
+                  </div>
 
-                {/* Title */}
-                <h3 className="text-xl font-bold text-gray-900 mb-1">
-                  {service.title}
-                </h3>
+                  {/* Middle: Content */}
+                  <div className="flex-grow">
+                    <div className="flex items-start justify-between">
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                        {service.title}
+                      </h3>
+                      {/* Mobile Arrow (visible here for layout balance usually, but we keep it below for consistency?)
+                          Actually, let's put the arrow absolute or flexed. 
+                          The design had arrow bottom right. Let's keep structure simple. */}
+                    </div>
+                    
+                    <p className="text-base text-slate-600 font-medium mb-4 leading-relaxed">
+                      {service.tagline}
+                    </p>
 
-                {/* Tagline */}
-                <p className="text-sm font-semibold text-teal-600 mb-4">
-                  {service.tagline}
-                </p>
+                    {/* Restored Points */}
+                    <ul className="space-y-1.5 mb-4">
+                      {service.points.map((point, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                           <span className={`mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0 ${service.buttonBg}`}></span>
+                           <span className="opacity-90">{point}</span>
+                        </li>
+                      ))}
+                    </ul>
 
-                {/* Points */}
-                <ul className="space-y-2 text-sm text-gray-700 mb-6">
-                  {service.points.map((point, i) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="text-orange-500 font-semibold">✔</span>
-                      {point}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                <button className="
-                  inline-flex items-center
-                  text-sm font-semibold
-                  text-white
-                  px-6 py-3
-                  rounded-full
-                  bg-gradient-to-r from-teal-600 to-teal-500
-                  shadow-md hover:shadow-lg
-                  hover:scale-[1.03]
-                  transition-all
-                ">
-                  {service.cta}
-                </button>
+                    <div className="flex items-center justify-between mt-auto pt-2">
+                      <p className={`text-xs font-bold tracking-wide uppercase ${service.accent}`}>
+                        By {service.creator}
+                      </p>
+                      
+                      {service.path ? (
+                        <Link
+                          to={service.path}
+                          className={`w-10 h-10 rounded-full flex items-center justify-center text-white shadow-md transition-all duration-300 transform group-hover:scale-110 group-hover:rotate-[-45deg] ${service.buttonBg}`}
+                          aria-label={`View ${service.title}`}
+                        >
+                          <ArrowRight size={20} />
+                        </Link>
+                      ) : (
+                        <button 
+                          className={`w-10 h-10 rounded-full flex items-center justify-center text-white shadow-md transition-all duration-300 transform group-hover:scale-110 group-hover:rotate-[-45deg] ${service.buttonBg}`}
+                          aria-label={`View ${service.title}`}
+                        >
+                          <ArrowRight size={20} />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
             );
           })}

@@ -1,187 +1,413 @@
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { courses } from "../data/coursesData";
 
-export default function CourseDetails() {
-  const { courseSlug } = useParams();
-  const course = courses.find(c => c.slug === courseSlug);
+const TIME_SLOTS = [
+  "09:00",
+  "10:00",
+  "11:00",
+  "12:00",
+  "14:00",
+  "15:00",
+  "16:00",
+  "17:00",
+];
 
-  const [activeIndex, setActiveIndex] = useState(0);
+export default function RequestCallbackScheduler() {
+  /* ================= STEP CONTROL ================= */
+  const [step, setStep] = useState(1);
 
-  // Auto slider
+  /* ================= STEP 1 FORM ================= */
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    consent: true,
+  });
+
+  /* ================= STEP 2 DATE & TIME ================= */
+  const [now, setNow] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState("");
+
+  /* ================= FORM VALIDATION ================= */
+  const [errors, setErrors] = useState({});
+
+  /* ================= LIVE CLOCK ================= */
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveIndex((prev) =>
-        prev === course.images.length - 1 ? 0 : prev + 1
-      );
-    }, 3000);
+      setNow(new Date());
+    }, 60000); // every minute
 
     return () => clearInterval(timer);
-  }, [course]);
+  }, []);
 
-  if (!course) {
-    return (
-      <div className="py-20 text-center text-xl font-semibold">
-        Course not found
-      </div>
-    );
+  /* ================= FUTURE DATES ONLY ================= */
+  function getFutureDates(days = 14) {
+    const dates = [];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    for (let i = 0; i < days; i++) {
+      const d = new Date(today);
+      d.setDate(today.getDate() + i);
+      dates.push(d);
+    }
+
+    return dates;
+  }
+
+  /* ================= DISABLE PAST TIMES ================= */
+  function isPastTime(date, time) {
+    if (!date) return false;
+
+    const [h, m] = time.split(":").map(Number);
+    const slot = new Date(date);
+    slot.setHours(h, m, 0, 0);
+
+    return slot <= now;
+  }
+
+  /* ================= VALIDATE FORM ================= */
+  function validateForm() {
+    const newErrors = {};
+    
+    if (!form.name.trim()) newErrors.name = "Name is required";
+    if (!form.phone.trim()) newErrors.phone = "Phone number is required";
+    if (!form.email.trim()) newErrors.email = "Email is required";
+    
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (form.email && !emailRegex.test(form.email)) {
+      newErrors.email = "Please enter a valid email";
+    }
+    
+    if (!form.consent) newErrors.consent = "You must agree to receive updates";
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }
+
+  /* ================= STEP 1 SUBMIT ================= */
+  function handleRequestCallback(e) {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      // Scroll to top to show errors
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // ✅ SMOOTH TRANSITION TO STEP 2
+    setStep(2);
+    
+    // Auto-select tomorrow's date
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    setSelectedDate(tomorrow);
+    
+    // Auto-select first available time slot
+    const availableSlots = TIME_SLOTS.filter(time => !isPastTime(tomorrow, time));
+    if (availableSlots.length > 0) {
+      setSelectedTime(availableSlots[0]);
+    } else {
+      // If no slots available today, try next day
+      const nextDay = new Date(tomorrow);
+      nextDay.setDate(tomorrow.getDate() + 1);
+      const nextDaySlots = TIME_SLOTS.filter(time => !isPastTime(nextDay, time));
+      if (nextDaySlots.length > 0) {
+        setSelectedDate(nextDay);
+        setSelectedTime(nextDaySlots[0]);
+      }
+    }
+  }
+
+  /* ================= FINAL SUBMIT ================= */
+  function handleSchedule() {
+    if (!selectedDate || !selectedTime) {
+      alert("Please select both date and time");
+      return;
+    }
+
+    const payload = {
+      ...form,
+      date: selectedDate.toISOString().split('T')[0],
+      time: selectedTime,
+      timestamp: new Date().toISOString(),
+    };
+
+    console.log("FINAL SCHEDULING DATA:", payload);
+
+    // Show success message with details
+    const formattedDate = selectedDate.toLocaleDateString("en-IN", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+    
+    alert(`✅ Call Scheduled Successfully!\n\n📅 Date: ${formattedDate}\n⏰ Time: ${selectedTime}\n👤 Name: ${form.name}\n📞 Phone: ${form.phone}\n📧 Email: ${form.email}\n\nWe'll call you at ${selectedTime} on ${formattedDate}.`);
+    
+    // Optional: Reset form after successful booking
+    // resetForm();
+  }
+
+  /* ================= RESET FORM ================= */
+  function resetForm() {
+    setStep(1);
+    setForm({ name: "", phone: "", email: "", consent: true });
+    setSelectedDate(null);
+    setSelectedTime("");
+    setErrors({});
+  }
+
+  /* ================= GO BACK ================= */
+  function goBack() {
+    setStep(1);
+    setErrors({});
+  }
+
+  /* ================= FORMAT DATE FOR DISPLAY ================= */
+  function formatDate(date) {
+    if (!date) return "";
+    return date.toLocaleDateString("en-IN", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+    });
   }
 
   return (
-    <section className="bg-gradient-to-br from-blue-50 via-white to-blue-50 py-12 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-8 items-start">
+    <div className="bg-white rounded-3xl shadow-2xl p-8 border border-blue-100 max-w-md mx-auto">
 
-        {/* ================= LEFT CONTENT ================= */}
-        <div className="relative">
-          {/* Floating profile images */}
-          <div className="absolute -right-4 top-8 w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow-lg z-10">
-            <img 
-              src="/path-to-profile-1.jpg" 
-              alt="Profile" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="absolute -right-8 top-32 w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-lg z-10">
-            <img 
-              src="/path-to-profile-2.jpg" 
-              alt="Profile" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="absolute -right-4 top-56 w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-lg z-10">
-            <img 
-              src="/path-to-profile-3.jpg" 
-              alt="Profile" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="absolute -right-8 top-80 w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow-lg z-10">
-            <img 
-              src="/path-to-profile-4.jpg" 
-              alt="Profile" 
-              className="w-full h-full object-cover"
-            />
-          </div>
+      {/* STAR ICON */}
+      <div className="flex justify-center text-3xl mb-3">⭐</div>
 
-          {/* Top header badge */}
-          <div className="mb-6 inline-block">
-            <div className="bg-gradient-to-r from-blue-900 via-blue-950 to-blue-900 rounded-2xl px-6 py-4 shadow-xl">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
-                  <svg className="w-8 h-8 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
-                    <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                  </svg>
-                </div>
-              </div>
-              <div className="text-yellow-400 text-xs font-medium tracking-wide mb-1">
-                INDIA'S MOST TRUSTED
-              </div>
-              <div className="text-white text-2xl font-bold mb-1">
-                CPA INSTITUTE
-              </div>
-              <div className="text-gray-300 text-sm">
-                80% of CPA's in India are Miles Alumni
-              </div>
-            </div>
-          </div>
-
-          {/* Main heading */}
-          <h1 className="text-5xl font-extrabold text-gray-900 leading-tight mb-4">
-            Be an AI-Ready CPA in 2026
-          </h1>
-
-          <h2 className="text-4xl font-bold mb-8">
-            <span className="text-blue-500">Earn 50L+</span>{" "}
-            <span className="text-yellow-500">per annum</span>
-          </h2>
-
-          {/* Bullet points */}
-          <ul className="space-y-3 text-lg text-gray-700">
-            <li className="flex items-start">
-              <span className="text-2xl mr-3">•</span>
-              <span className="font-medium">CPA is the US equivalent of C.A.</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-2xl mr-3">•</span>
-              <span className="font-medium">4 exams | 12 months</span>
-            </li>
-            <li className="flex items-start">
-              <span className="text-2xl mr-3">•</span>
-              <span className="font-medium">Jobs at Big 4 & MNCs in India & U.S.</span>
-            </li>
-          </ul>
-        </div>
-
-        {/* ================= RIGHT FORM ================= */}
-        <div className="bg-gradient-to-br from-blue-50 to-white rounded-3xl shadow-2xl p-8 border border-blue-100 sticky top-24">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <svg className="w-8 h-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-            </svg>
-          </div>
-
-          <h3 className="text-3xl font-bold text-center mb-2">
-            <span className="text-blue-500">Want to be an</span>
+      {/* ================= STEP 1 ================= */}
+      {step === 1 && (
+        <>
+          <h3 className="text-3xl font-bold text-center text-blue-600 mb-2">
+            Want to be an
             <br />
-            <span className="text-blue-500">AI-Ready Accountant ?</span>
+            AI-Ready Accountant?
           </h3>
 
-          <p className="text-center font-semibold text-gray-700 mb-6">
+          <p className="text-center text-gray-600 mb-6">
             Connect with an Expert
           </p>
 
-          <form className="space-y-4">
-            <input
-              type="text"
-              className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-blue-400 transition"
-              placeholder="Full Name*"
-            />
-
-            <div className="flex gap-2">
-              <div className="flex items-center justify-center px-3 py-3 bg-white border-2 border-gray-200 rounded-lg">
-                <img 
-                  src="https://flagcdn.com/w40/in.png" 
-                  alt="India" 
-                  className="w-6 h-4"
-                />
-              </div>
+          <form onSubmit={handleRequestCallback} className="space-y-4">
+            {/* Name Input */}
+            <div>
               <input
-                type="tel"
-                className="flex-1 px-4 py-3 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-blue-400 transition"
-                placeholder="Phone Number*"
+                type="text"
+                placeholder="Full Name*"
+                value={form.name}
+                onChange={(e) => {
+                  setForm({ ...form, name: e.target.value });
+                  if (errors.name) setErrors({...errors, name: ""});
+                }}
+                className={`w-full px-4 py-3 rounded-xl border-2 focus:outline-none ${
+                  errors.name ? "border-red-400" : "border-gray-200 focus:border-blue-400"
+                }`}
               />
+              {errors.name && <p className="text-red-500 text-sm mt-1 ml-1">{errors.name}</p>}
             </div>
 
-            <input
-              type="email"
-              className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:outline-none focus:border-blue-400 transition"
-              placeholder="E-mail*"
-            />
-
-            <label className="flex items-start gap-3 text-sm text-gray-600">
-              <input 
-                type="checkbox" 
-                defaultChecked 
-                className="mt-1 w-4 h-4 text-blue-500 border-gray-300 rounded focus:ring-blue-500"
+            {/* Phone Input */}
+            <div>
+              <input
+                type="tel"
+                placeholder="Phone Number*"
+                value={form.phone}
+                onChange={(e) => {
+                  setForm({ ...form, phone: e.target.value });
+                  if (errors.phone) setErrors({...errors, phone: ""});
+                }}
+                className={`w-full px-4 py-3 rounded-xl border-2 focus:outline-none ${
+                  errors.phone ? "border-red-400" : "border-gray-200 focus:border-blue-400"
+                }`}
               />
-              <span>
-                I agree to receive updates via{" "}
-                <span className="text-green-600">WhatsApp</span>, Email & SMS.{" "}
-                <a href="#" className="text-blue-500 underline">Privacy Policy</a>
-              </span>
-            </label>
+              {errors.phone && <p className="text-red-500 text-sm mt-1 ml-1">{errors.phone}</p>}
+            </div>
 
+            {/* Email Input */}
+            <div>
+              <input
+                type="email"
+                placeholder="E-mail*"
+                value={form.email}
+                onChange={(e) => {
+                  setForm({ ...form, email: e.target.value });
+                  if (errors.email) setErrors({...errors, email: ""});
+                }}
+                className={`w-full px-4 py-3 rounded-xl border-2 focus:outline-none ${
+                  errors.email ? "border-red-400" : "border-gray-200 focus:border-blue-400"
+                }`}
+              />
+              {errors.email && <p className="text-red-500 text-sm mt-1 ml-1">{errors.email}</p>}
+            </div>
+
+            {/* Consent Checkbox */}
+            <div>
+              <label className="flex items-start gap-3 text-sm text-gray-600">
+                <input
+                  type="checkbox"
+                  checked={form.consent}
+                  onChange={(e) => {
+                    setForm({ ...form, consent: e.target.checked });
+                    if (errors.consent) setErrors({...errors, consent: ""});
+                  }}
+                  className="mt-1"
+                />
+                I agree to receive updates via WhatsApp, Email & SMS.
+              </label>
+              {errors.consent && <p className="text-red-500 text-sm mt-1 ml-1">{errors.consent}</p>}
+            </div>
+
+            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-lg transition shadow-lg hover:shadow-xl"
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-xl transition duration-300 shadow-md hover:shadow-lg"
             >
               Request A Call Back
             </button>
           </form>
-        </div>
+        </>
+      )}
 
-      </div>
-    </section>
+      {/* ================= STEP 2 ================= */}
+      {step === 2 && (
+        <>
+          {/* Back Button */}
+          <button
+            onClick={goBack}
+            className="mb-4 text-blue-500 hover:text-blue-700 flex items-center gap-2 transition duration-300"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Form
+          </button>
+
+          <h3 className="text-3xl font-bold text-center text-blue-600 mb-2">
+            Schedule Your Call
+          </h3>
+
+          <p className="text-center text-gray-600 mb-6">
+            Select a Date & Time
+          </p>
+
+          <div className="space-y-6">
+            {/* User Info Summary */}
+            <div className="bg-blue-50 p-4 rounded-xl">
+              <h4 className="font-semibold text-blue-700 mb-2">Your Details</h4>
+              <p className="text-sm text-gray-700"><span className="font-medium">Name:</span> {form.name}</p>
+              <p className="text-sm text-gray-700"><span className="font-medium">Phone:</span> {form.phone}</p>
+              <p className="text-sm text-gray-700"><span className="font-medium">Email:</span> {form.email}</p>
+            </div>
+
+            {/* Date Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Select Date *
+              </label>
+              <select
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none transition duration-300"
+                value={selectedDate ? selectedDate.toISOString() : ""}
+                onChange={(e) => {
+                  const newDate = e.target.value ? new Date(e.target.value) : null;
+                  setSelectedDate(newDate);
+                  
+                  // Reset time when date changes
+                  setSelectedTime("");
+                  
+                  // Auto-select first available time for new date
+                  if (newDate) {
+                    const availableSlots = TIME_SLOTS.filter(time => !isPastTime(newDate, time));
+                    if (availableSlots.length > 0) {
+                      setSelectedTime(availableSlots[0]);
+                    }
+                  }
+                }}
+              >
+                <option value="">Choose a date...</option>
+                {getFutureDates().map((date) => (
+                  <option key={date.toISOString()} value={date.toISOString()}>
+                    {formatDate(date)}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Time Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Select Time *
+              </label>
+              <select
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-400 focus:outline-none transition duration-300 disabled:bg-gray-100"
+                disabled={!selectedDate}
+                value={selectedTime}
+                onChange={(e) => setSelectedTime(e.target.value)}
+              >
+                <option value="">Choose a time...</option>
+                {TIME_SLOTS.map((time) => {
+                  const isPast = isPastTime(selectedDate, time);
+                  return (
+                    <option
+                      key={time}
+                      value={time}
+                      disabled={isPast}
+                      className={isPast ? "text-gray-400 italic" : "text-gray-800"}
+                    >
+                      {time} {isPast ? "(Unavailable)" : ""}
+                    </option>
+                  );
+                })}
+              </select>
+              {!selectedDate && (
+                <p className="text-sm text-gray-500 mt-1">Please select a date first</p>
+              )}
+            </div>
+
+            {/* Selected Date & Time Display */}
+            {selectedDate && selectedTime && (
+              <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
+                <h4 className="font-semibold text-green-700 mb-2">✅ Selected Time Slot</h4>
+                <p className="text-green-800 font-medium">
+                  {selectedDate.toLocaleDateString("en-IN", {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                  })} at {selectedTime}
+                </p>
+              </div>
+            )}
+
+            {/* Final Submit Button */}
+            <button
+              onClick={handleSchedule}
+              className={`w-full py-4 rounded-xl font-bold transition duration-300 shadow-md ${
+                selectedDate && selectedTime
+                  ? "bg-green-500 hover:bg-green-600 text-white hover:shadow-lg transform hover:-translate-y-0.5"
+                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
+              }`}
+              disabled={!selectedDate || !selectedTime}
+            >
+              {selectedDate && selectedTime ? (
+                <>📅 Book My 1-On-1 Counselling</>
+              ) : (
+                <>Select Date & Time to Continue</>
+              )}
+            </button>
+
+            {/* Timezone Note */}
+            <div className="text-xs text-gray-500 text-center pt-2">
+              All times are in your local timezone
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   );
 }

@@ -10,6 +10,7 @@ import Hero from "./components/home/Hero";
 import Services from "./components/home/Services";
 import Placements from "./components/placements/Placements";
 import FAQ from "./components/Faq/Faq";
+import CourseOffer from "./components/home/CourseOffer";
 
 // Pages
 import About from "./pages/About";
@@ -17,13 +18,17 @@ import Courses from "./pages/Courses";
 import Alumni from "./pages/Alumni";
 import Contact from "./pages/Contact";
 import CourseDetails from "./pages/CourseDetails";
+import TrainingPlacements from "./pages/TrainingPlacements";
+import CorporateTraining from "./pages/CorporateTraining";
+import StaffingSolutions from "./pages/StaffingSolutions";
+import UpskillingPrograms from "./pages/UpskillingPrograms";
 
 function App() {
   return (
     <>
       {/* Header always visible */}
       <Header />
-
+<CourseOffer/>
       {/* Page routing */}
       <Routes>
         {/* HOME / LANDING PAGE */}
@@ -49,6 +54,10 @@ function App() {
         <Route path="/alumni" element={<Alumni />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/placements" element={<AllPlacements />} />
+        <Route path="/training-placements" element={<TrainingPlacements />} />
+        <Route path="/corporate-training" element={<CorporateTraining />} />
+        <Route path="/staffing-solutions" element={<StaffingSolutions />} />
+        <Route path="/upskilling-programs" element={<UpskillingPrograms />} />
 
 
         {/* 🔥 CATCH-ALL (Unknown paths) */}

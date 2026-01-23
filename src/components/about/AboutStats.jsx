@@ -53,7 +53,7 @@ export default function AboutStats() {
             <div className="hidden md:block h-16 w-px bg-gray-300" />
 
             {/* STAT 2 */}
-            <div className="flex flex-col items-center px-10">
+            {/* <div className="flex flex-col items-center px-10">
               <h3 className="text-4xl font-extrabold text-gray-900">
                 {visible && <CountUp end={56} duration={2} />}k
               </h3>
@@ -61,7 +61,7 @@ export default function AboutStats() {
               Number Of students Enrolled
               <br /> 
               </p>
-            </div>
+            </div> */}
             <div className="flex flex-col items-center px-10">
               <h3 className="text-4xl font-extrabold text-gray-900">
                 {visible && <CountUp end={56} duration={2} />}k
@@ -86,7 +86,7 @@ export default function AboutStats() {
             {/* STAT 3 */}
             <div className="flex flex-col items-center px-10">
               <h3 className="text-4xl font-extrabold text-gray-900">
-                {visible && <CountUp end={12} duration={2} />}LPA
+                {visible && <CountUp end={14} duration={2} />}LPA
               </h3>
               <p className="mt-2 text-sm text-gray-600 text-center">
                 Highest Package   <br /> 
