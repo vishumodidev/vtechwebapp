@@ -59,7 +59,7 @@ export default function Header() {
           <Logo />
 
           {/* ================= DESKTOP NAV + CTA ================= */}
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-1 xl:gap-6">
 
             {/* NAVBAR (Courses hover dropdown, others scroll) */}
             <TopNav />

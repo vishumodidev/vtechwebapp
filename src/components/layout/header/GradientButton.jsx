@@ -31,7 +31,7 @@ export default function GradientButton({
       </div>
 
       {/* Text */}
-      <span className="relative z-10 ml-3 text-white font-bold text-sm tracking-wide uppercase">
+      <span className="relative z-10 ml-3 text-white font-bold text-sm tracking-wide uppercase whitespace-nowrap">
         {text}
       </span>
 

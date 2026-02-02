@@ -40,7 +40,7 @@ export default function TopNav() {
   };
 
   return (
-    <nav className="hidden md:flex gap-6 items-center">
+    <nav className="hidden md:flex gap-1 xl:gap-6 items-center">
       {navItems.map((item) => (
         <div key={item.label} className="relative group">
 
@@ -48,13 +48,13 @@ export default function TopNav() {
           {item.label !== "Courses" ? (
             <button
               onClick={() => handleNavClick(item)}
-              className="text-sm font-medium text-gray-700 hover:text-blue-600 transition"
+              className="text-sm font-medium text-gray-700 hover:text-blue-600 transition whitespace-nowrap"
             >
               {item.label}
             </button>
           ) : (
             // COURSES TAB (NO CLICK)
-            <span className="flex items-center gap-1 text-sm font-medium text-gray-700 cursor-default">
+            <span className="flex items-center gap-1 text-sm font-medium text-gray-700 cursor-default whitespace-nowrap">
               Courses
               <svg
                 className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
