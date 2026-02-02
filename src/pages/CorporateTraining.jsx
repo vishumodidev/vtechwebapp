@@ -48,14 +48,14 @@ export default function CorporateTraining() {
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen text-white font-sans selection:bg-cyan-500 selection:text-white pt-20">
+    <div className="bg-[#061A2F] min-h-screen text-white font-sans selection:bg-blue-500 selection:text-white pt-20 border-y-[12px] border-yellow-500">
       
       {/* Hero Section */}
       <section className="relative px-6 py-24 md:py-32 overflow-hidden">
         {/* Abstract Background Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-           <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl animate-pulse"></div>
-           <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px]"></div>
+           <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse"></div>
+           <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-green-600/10 rounded-full blur-[100px]"></div>
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10 text-center">
@@ -64,12 +64,12 @@ export default function CorporateTraining() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="inline-block px-4 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-sm font-semibold tracking-wider uppercase mb-6 backdrop-blur-sm">
+            <span className="inline-block px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-sm font-semibold tracking-wider uppercase mb-6 backdrop-blur-sm">
               Corporate Learning Solutions
             </span>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
               Empowering Teams, <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500">
                 Elevating Performance.
               </span>
             </h1>

@@ -1,15 +1,42 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { navItems } from "../../../data/navigation";
 import { courses } from "../../../data/coursesData";
 
 export default function TopNav() {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // Scroll for non-course items
   const handleScroll = (sectionId) => {
-    if (!sectionId) return;
     const el = document.getElementById(sectionId);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      const headerOffset = 80; // Adjust for sticky header
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
+  const handleNavClick = (item) => {
+    // List of keys that are HOME SECTIONS, not separate pages
+    // (Or items we want to scroll to if we are on Home)
+    const homeSections = ["services", "faq", "placements"]; 
+    
+    // If it's a home section OR specifically the Home link
+    if (homeSections.includes(item.sectionId) || item.path === "/") {
+      if (location.pathname === "/") {
+        handleScroll(item.sectionId || "top");
+      } else {
+        navigate("/");
+        setTimeout(() => handleScroll(item.sectionId || "top"), 100);
+      }
+    } else {
+      // Otherwise, regular navigation (About, Courses, Contact, Alumni, etc.)
+      navigate(item.path);
+    }
   };
 
   return (
@@ -20,7 +47,7 @@ export default function TopNav() {
           {/* ================= MAIN NAV ================= */}
           {item.label !== "Courses" ? (
             <button
-              onClick={() => handleScroll(item.sectionId)}
+              onClick={() => handleNavClick(item)}
               className="text-sm font-medium text-gray-700 hover:text-blue-600 transition"
             >
               {item.label}

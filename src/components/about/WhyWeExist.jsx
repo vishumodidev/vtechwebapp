@@ -5,7 +5,7 @@ export default function WhyWeExist() {
   const [ref, visible] = useScrollAnimation();
 
   return (
-    <section className="py-16 bg-blue-900">
+    <section className="py-16 bg-[#061A2F] border-y-[12px] border-yellow-500">
       <div className="max-w-4xl mx-auto px-4">
 
         {/* Scroll animation wrapper */}
@@ -14,8 +14,8 @@ export default function WhyWeExist() {
           className={`animate-scroll ${visible ? "show" : ""}`}
         >
           {/* Heading */}
-          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white/90">
-            Why We Exist
+          <h3 className="text-3xl md:text-4xl font-extrabold mb-6 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent w-fit">
+            Our Values
           </h3>
 
           {/* List */}

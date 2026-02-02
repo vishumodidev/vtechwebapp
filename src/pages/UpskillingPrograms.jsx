@@ -29,19 +29,19 @@ export default function UpskillingPrograms() {
   ];
 
   return (
-    <div className="bg-white min-h-screen pt-20 font-sans text-slate-900 selection:bg-orange-100 selection:text-orange-900">
+    <div className="bg-white min-h-screen pt-20 font-sans text-slate-900 selection:bg-blue-100 selection:text-blue-900">
       
       {/* Hero Section */}
-      <section className="relative py-24 lg:py-32 overflow-hidden bg-slate-950 text-white">
+      <section className="relative py-24 lg:py-32 overflow-hidden bg-[#061A2F] text-white border-y-[12px] border-yellow-500">
         {/* Dynamic Background */}
         <div className="absolute inset-0 z-0 opacity-20">
-            <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-orange-900/40 via-slate-950 to-slate-950"></div>
+            <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/40 via-[#061A2F] to-[#061A2F]"></div>
             <svg className="absolute top-0 right-0 w-1/2 h-full opacity-30" viewBox="0 0 100 100" preserveAspectRatio="none">
-               <path d="M0 100 L100 0 L100 100 Z" fill="url(#orangeGradient)" />
+               <path d="M0 100 L100 0 L100 100 Z" fill="url(#blueGradient)" />
                <defs>
-                 <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                   <stop offset="0%" stopColor="#f97316" stopOpacity="0.5" />
-                   <stop offset="100%" stopColor="#ea580c" stopOpacity="01" />
+                 <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                   <stop offset="0%" stopColor="#2563eb" stopOpacity="0.5" />
+                   <stop offset="100%" stopColor="#061A2F" stopOpacity="01" />
                  </linearGradient>
                </defs>
             </svg>
@@ -53,12 +53,12 @@ export default function UpskillingPrograms() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/10 border border-orange-500/30 text-orange-400 rounded-full text-xs font-bold tracking-widest uppercase mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-500/10 border border-blue-500/30 text-blue-400 rounded-full text-xs font-bold tracking-widest uppercase mb-8">
               <Rocket size={14} /> Future Proof Your Career
             </div>
             <h1 className="text-5xl lg:text-7xl font-black tracking-tighter mb-6 leading-tight">
               Stay Ahead. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500">
                 Stay Relevant.
               </span>
             </h1>

@@ -10,20 +10,15 @@ export default function AboutStats() {
 
         {/* BADGE */}
         <div className="mt-14 mb-8">
-          <button
+            <span
             className="
-              inline-flex items-center justify-center
-              px-8 py-3
-              rounded-full
-              bg-gradient-to-r from-teal-600 to-teal-500
-              text-white font-semibold
-              shadow-[0_10px_30px_rgba(13,148,136,0.35)]
-              hover:shadow-[0_15px_40px_rgba(13,148,136,0.45)]
-              transition-all duration-300 ease-out
+              text-4xl md:text-5xl font-extrabold
+              bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent
+              pb-2
             "
           >
             About Us
-          </button>
+          </span>
         </div>
 
         {/* DESCRIPTION */}
@@ -37,65 +32,45 @@ export default function AboutStats() {
             offering a diverse range of courses.
           </p>
 
-          {/* STATS */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-0">
-
-            {/* STAT 1 */}
-            <div className="flex flex-col items-center px-10">
-              <h3 className="text-4xl font-extrabold text-gray-900">
-                {visible && <CountUp end={25} duration={2} />}+
-              </h3>
-              <p className="mt-2 text-sm text-gray-600 text-center">
-                Years of Learning <br /> Legacy
-              </p>
-            </div>
-
-            <div className="hidden md:block h-16 w-px bg-gray-300" />
-
-            {/* STAT 2 */}
-            {/* <div className="flex flex-col items-center px-10">
-              <h3 className="text-4xl font-extrabold text-gray-900">
-                {visible && <CountUp end={56} duration={2} />}k
-              </h3>
-              <p className="mt-2 text-sm text-gray-600 text-center">
-              Number Of students Enrolled
-              <br /> 
-              </p>
-            </div> */}
-            <div className="flex flex-col items-center px-10">
-              <h3 className="text-4xl font-extrabold text-gray-900">
-                {visible && <CountUp end={56} duration={2} />}k
-              </h3>
-              <p className="mt-2 text-sm text-gray-600 text-center">
-              Number Of students Enrolled
-              <br /> 
-              </p>
-            </div>
-            <div className="flex flex-col items-center px-10">
-              <h3 className="text-4xl font-extrabold text-gray-900">
-                {visible && <CountUp end={4} duration={2} />}LPA
-              </h3>
-              <p className="mt-2 text-sm text-gray-600 text-center">
-              Average CTC
-              <br /> 
-              </p>
-            </div>
-
-            <div className="hidden md:block h-16 w-px bg-gray-300" />
-
-            {/* STAT 3 */}
-            <div className="flex flex-col items-center px-10">
-              <h3 className="text-4xl font-extrabold text-gray-900">
-                {visible && <CountUp end={14} duration={2} />}LPA
-              </h3>
-              <p className="mt-2 text-sm text-gray-600 text-center">
-                Highest Package   <br /> 
-              </p>
-            </div>
+          {/* OUR STORY */}
+          <div className="max-w-4xl mx-auto text-left mt-12 pl-4 md:pl-0">
+            <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent">Our Story</h2>
+            <ul className="list-disc pl-5 space-y-4 text-gray-700 text-lg leading-relaxed marker:text-gray-900">
+              <li>
+                <span className="font-bold text-gray-900">Who we are: </span> 
+                VTech Integrated Solutions is a trusted career accelerator for engineering graduates across India. Since 2000, we’ve been shaping futures by combining technical training with real-world industry exposure.
+              </li>
+              <li>
+                <span className="font-bold text-gray-900">What we do: </span>
+                We act as a <i>Finishing School</i>, bridging the gap between academic learning and corporate expectations. Our programs are designed to make students job-ready, confident, and future-focused.
+              </li>
+              <li>
+                <span className="font-bold text-gray-900">Our impact: </span>
+                Thousands of graduates have launched successful careers through our mentorship, even during challenging times like the pandemic.
+              </li>
+            </ul>
 
           </div>
-        </div>
 
+          {/* ACHIEVEMENTS */}
+          <div className="max-w-4xl mx-auto text-left mt-12 pl-4 md:pl-0">
+            <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent">Achievements</h2>
+            <ul className="list-disc pl-5 space-y-4 text-gray-700 text-lg leading-relaxed marker:text-gray-900">
+              <li>
+                <span className="font-bold text-gray-900">20+ years of service</span> in training and placements.
+              </li>
+              <li>
+                <span className="font-bold text-gray-900">Thousands of successful alumni</span> working in top IT companies worldwide.
+              </li>
+              <li>
+                <span className="font-bold text-gray-900">Resilience during COVID-19,</span> ensuring uninterrupted placements and support.
+              </li>
+              <li>
+                <span className="font-bold text-gray-900">Recognition</span> as one of Bangalore’s leading training and placement institutes.
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );

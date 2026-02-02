@@ -2,6 +2,21 @@ import { courses } from "../../data/coursesData";
 import CourseCard from "./CourseCard";
 import useScrollAnimation from "../common/useScrollAnimation";
 
+// Extracted component to handle individual card animation
+function AnimatedCourseCardWrapper({ course, index }) {
+  const [cardRef, cardVisible] = useScrollAnimation();
+
+  return (
+    <div
+      ref={cardRef}
+      className={`animate-scroll ${cardVisible ? "show" : ""}`}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
+      <CourseCard course={course} />
+    </div>
+  );
+}
+
 export default function CoursesGrid() {
   const [sectionRef, sectionVisible] = useScrollAnimation();
 
@@ -13,22 +28,13 @@ export default function CoursesGrid() {
       }`}
     >
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {courses.map((course, index) => {
-          const [cardRef, cardVisible] = useScrollAnimation();
-
-          return (
-            <div
-              key={course.id}
-              ref={cardRef}
-              className={`animate-scroll ${
-                cardVisible ? "show" : ""
-              }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
-            >
-              <CourseCard course={course} />
-            </div>
-          );
-        })}
+        {courses.map((course, index) => (
+          <AnimatedCourseCardWrapper
+            key={course.id}
+            course={course}
+            index={index}
+          />
+        ))}
       </div>
     </section>
   );

@@ -180,7 +180,7 @@ export default function CourseDetails() {
                   Want to be an
                 </h2>
                 <h3 className="text-3xl font-extrabold text-blue-600 mb-3">
-                  AI-Ready Accountant?
+                  AI-Ready Developer
                 </h3>
                 <p className="text-gray-700 font-semibold">Connect with an Expert</p>
               </div>
@@ -230,7 +230,7 @@ export default function CourseDetails() {
 
                 <button
                   onClick={handleSubmit}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition shadow-lg hover:shadow-xl transform hover:scale-105"
+                  className="w-full bg-[#061A2F] hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   Request A Call Back
                 </button>

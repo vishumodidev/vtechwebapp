@@ -1,5 +1,26 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView, useSpring, useMotionValue, useTransform, animate } from "framer-motion";
+import { useRef } from "react";
+
+// Counter Component
+const Counter = ({ from, to }) => {
+  const nodeRef = useRef(null);
+  const isInView = useInView(nodeRef, { once: false, margin: "-10px" });
+  
+  const count = useMotionValue(from);
+  const rounded = useTransform(count, (latest) => Math.round(latest));
+
+  useEffect(() => {
+    if (isInView) {
+      const controls = animate(count, to, { duration: 2, ease: "easeOut" });
+      return controls.stop;
+    } else {
+      count.set(from);
+    }
+  }, [isInView, from, to, count]);
+
+  return <motion.span ref={nodeRef}>{rounded}</motion.span>;
+};
 
 // Slider Data
 const sliderImages = [
@@ -141,30 +162,35 @@ export default function CourseOffer() {
             {/* Headline */}
             <div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                Be an <span className="text-blue-400">AI-Ready CPA</span>{" "}
+                Be an <span className="text-blue-400">AI-Ready</span>{" "}
                 in 2026
               </h1>
               <div className="mt-4 flex items-center gap-2 text-2xl sm:text-3xl font-bold">
                 <span className="text-white">Earn</span>
-                <span className="text-yellow-400">50L+ per annum</span>
+                <span className="text-yellow-400"> Top Offers</span>
               </div>
             </div>
 
             {/* Bullets */}
-            <ul className="space-y-4 pt-4">
+            {/* Stats Cards (Replacing Bullets) */}
+            <div className="grid grid-cols-2 gap-4 pt-4">
               {[
-                "CPA is the US equivalent of C.A.",
-                "4 exams | 12 months",
-                "Jobs at Big 4 & MNCs in India & U.S.",
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-3">
-                  <span className="flex-shrink-0 w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.5)]"></span>
-                  <span className="text-lg text-slate-200 font-medium">
-                    {item}
-                  </span>
-                </li>
+                { count: 25, suffix: "+", label: "Years of Legacy" },
+                { count: 56, suffix: "k", label: "Students Enrolled" },
+                { count: 4, suffix: "LPA", label: "Average CTC" },
+                { count: 14, suffix: "LPA", label: "Highest Package" },
+              ].map((stat, i) => (
+                <div key={i} className="bg-white p-4 rounded-xl shadow-lg border border-slate-100 flex flex-col items-center text-center group hover:scale-105 transition-transform duration-300">
+                  <h4 className="text-3xl font-bold text-blue-600 flex items-baseline">
+                    <Counter from={0} to={stat.count} />
+                    <span className="text-2xl">{stat.suffix}</span>
+                  </h4>
+                  <p className="text-xs text-slate-600 font-semibold mt-1">
+                    {stat.label}
+                  </p>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* ================= RIGHT COLUMN (Form) ================= */}
@@ -197,7 +223,7 @@ export default function CourseOffer() {
                         Want to be an
                       </h3>
                       <h3 className="text-2xl font-bold text-blue-600 mb-2">
-                        AI-Ready Accountant ?
+                        AI-Ready Developer ?
                       </h3>
                       <p className="text-sm font-semibold text-slate-600">
                         Connect with an Expert
@@ -277,7 +303,7 @@ export default function CourseOffer() {
                       {/* Submit Button */}
                       <button
                         type="submit"
-                        className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg shadow-lg shadow-blue-500/30 transition-all transform active:scale-95"
+                        className="w-full py-3.5 rounded-xl bg-[#061A2F] hover:bg-blue-700 text-white font-bold text-lg shadow-lg shadow-blue-500/30 transition-all transform active:scale-95"
                       >
                         Request A Call Back
                       </button>
@@ -341,7 +367,7 @@ export default function CourseOffer() {
                       {/* Submit Button */}
                       <button
                         type="submit"
-                        className="w-full py-3.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold text-lg shadow-lg shadow-blue-500/30 transition-all transform active:scale-95"
+                        className="w-full py-3.5 rounded-xl bg-[#061A2F] hover:bg-blue-900 text-white font-bold text-lg shadow-lg shadow-blue-500/30 transition-all transform active:scale-95"
                       >
                         Book My 1-On-1 Counselling
                       </button>
@@ -352,6 +378,8 @@ export default function CourseOffer() {
             </div>
           </div>
         </div>
+
+
       </div>
     </section>
   );

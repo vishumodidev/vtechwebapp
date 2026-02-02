@@ -30,14 +30,11 @@ export default function useScrollAnimation() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-        } else {
-          setVisible(false); // 👈 IMPORTANT
-        }
+        // Update state whenever visibility changes to allow re-triggering
+        setVisible(entry.isIntersecting);
       },
       {
-        threshold: 0.3, // 👈 important
+        threshold: 0.1, 
       }
     );
 

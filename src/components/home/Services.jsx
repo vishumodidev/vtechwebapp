@@ -13,7 +13,8 @@ export default function Services() {
       icon: <Briefcase size={40} className="text-blue-600" />,
       bg: "bg-blue-50",
       accent: "text-blue-600",
-      buttonBg: "bg-blue-600",
+      buttonBg: "bg-yellow-500 text-slate-900",
+      iconBg: "bg-yellow-100",
       path: "/training-placements", // Linked Path
       points: [
         "Industry-ready programs",
@@ -30,7 +31,8 @@ export default function Services() {
       icon: <LineChart size={40} className="text-purple-600" />,
       bg: "bg-purple-50",
       accent: "text-purple-600",
-      buttonBg: "bg-purple-600",
+      buttonBg: "bg-[#061A2F] text-white",
+      iconBg: "bg-blue-100",
       path: "/corporate-training",
       points: [
         "Customized organizational modules",
@@ -46,7 +48,8 @@ export default function Services() {
       icon: <Users size={40} className="text-pink-600" />,
       bg: "bg-pink-50",
       accent: "text-pink-600",
-      buttonBg: "bg-pink-600",
+      buttonBg: "bg-[#061A2F] text-white",
+      iconBg: "bg-blue-100",
       path: "/staffing-solutions",
       points: [
         "Pre-screened qualified candidates",
@@ -62,7 +65,8 @@ export default function Services() {
       icon: <ShieldCheck size={40} className="text-orange-600" />,
       bg: "bg-orange-50",
       accent: "text-orange-600",
-      buttonBg: "bg-orange-600",
+      buttonBg: "bg-yellow-500 text-slate-900",
+      iconBg: "bg-yellow-100",
       path: "/upskilling-programs",
       points: [
         "Short-term courses & certifications",
@@ -94,7 +98,7 @@ export default function Services() {
              </span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent">
             Services We Offer
           </h2>
 
@@ -121,14 +125,14 @@ export default function Services() {
                 <div className="flex flex-col sm:flex-row items-start gap-6">
                   
                   {/* Left: Illustration / Icon Area */}
-                  <div className="flex-shrink-0 w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500">
+                  <div className={`flex-shrink-0 w-20 h-20 ${service.iconBg} rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-500`}>
                     {service.icon}
                   </div>
 
                   {/* Middle: Content */}
                   <div className="flex-grow">
                     <div className="flex items-start justify-between">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                      <h3 className="text-2xl font-extrabold mb-2 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent w-fit">
                         {service.title}
                       </h3>
                       {/* Mobile Arrow (visible here for layout balance usually, but we keep it below for consistency?)
@@ -136,16 +140,16 @@ export default function Services() {
                           The design had arrow bottom right. Let's keep structure simple. */}
                     </div>
                     
-                    <p className="text-base text-slate-600 font-medium mb-4 leading-relaxed">
+                    <p className="text-base text-blue-700 font-bold mb-4 leading-relaxed">
                       {service.tagline}
                     </p>
 
                     {/* Restored Points */}
                     <ul className="space-y-1.5 mb-4">
                       {service.points.map((point, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                        <li key={i} className="flex items-start gap-2 text-sm text-gray-900 font-medium">
                            <span className={`mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0 ${service.buttonBg}`}></span>
-                           <span className="opacity-90">{point}</span>
+                           <span>{point}</span>
                         </li>
                       ))}
                     </ul>
@@ -158,14 +162,14 @@ export default function Services() {
                       {service.path ? (
                         <Link
                           to={service.path}
-                          className={`w-10 h-10 rounded-full flex items-center justify-center text-white shadow-md transition-all duration-300 transform group-hover:scale-110 group-hover:rotate-[-45deg] ${service.buttonBg}`}
+                          className={`w-10 h-10 rounded-full flex items-center justify-center shadow-md transition-all duration-300 transform group-hover:scale-110 group-hover:rotate-[-45deg] ${service.buttonBg}`}
                           aria-label={`View ${service.title}`}
                         >
                           <ArrowRight size={20} />
                         </Link>
                       ) : (
                         <button 
-                          className={`w-10 h-10 rounded-full flex items-center justify-center text-white shadow-md transition-all duration-300 transform group-hover:scale-110 group-hover:rotate-[-45deg] ${service.buttonBg}`}
+                          className={`w-10 h-10 rounded-full flex items-center justify-center shadow-md transition-all duration-300 transform group-hover:scale-110 group-hover:rotate-[-45deg] ${service.buttonBg}`}
                           aria-label={`View ${service.title}`}
                         >
                           <ArrowRight size={20} />

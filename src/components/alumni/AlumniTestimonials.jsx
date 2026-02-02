@@ -2,9 +2,9 @@ export default function AlumniTestimonials() {
     return (
       <section className="py-16 bg-white">
         <div className="max-w-5xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-extrabold mb-10">
-            Alumni Voices
-          </h2>
+        <h2 className="text-3xl md:text-4xl font-extrabold mb-10 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent w-fit mx-auto">
+          Alumni Voices
+        </h2>
   
           <div className="grid md:grid-cols-2 gap-8">
             <blockquote className="bg-gray-50 p-6 rounded-xl italic text-gray-700">

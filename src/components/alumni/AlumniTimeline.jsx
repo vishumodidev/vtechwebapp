@@ -9,7 +9,7 @@ const milestones = [
     return (
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-extrabold text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-12 text-center bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent w-fit mx-auto">
             Alumni Achievements
           </h2>
   

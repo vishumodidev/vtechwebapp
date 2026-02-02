@@ -1,133 +1,96 @@
 import { useNavigate } from "react-router-dom";
 import useScrollAnimation from "../common/useScrollAnimation";
+import { ArrowRight } from "lucide-react";
+
+// Logos
+import accenture from "../../assets/images/clogos/accenture.png";
+import deloitte from "../../assets/images/clogos/deloitte.png";
+import ey from "../../assets/images/clogos/ey.png";
+import grantthornton from "../../assets/images/clogos/grantthornton.png";
+import jpmorgan from "../../assets/images/clogos/jpmorgan.avif";
+import kpmg from "../../assets/images/clogos/kpmg.png";
+import pwc from "../../assets/images/clogos/pwc.png";
+import rsm from "../../assets/images/clogos/rsm.png";
 
 export default function Placements() {
   const navigate = useNavigate();
+  const [headingRef, headingVisible] = useScrollAnimation();
 
-  const placements = [
-    {
-      name: "Rahul Sharma",
-      company: "Infosys",
-      role: "Software Engineer",
-      package: "₹6.5 LPA",
-      image: "https://i.pravatar.cc/100?img=1",
-    },
-    {
-      name: "Ananya Verma",
-      company: "TCS",
-      role: "Full Stack Developer",
-      package: "₹7.2 LPA",
-      image: "https://i.pravatar.cc/100?img=2",
-    },
-    {
-      name: "Suresh Kumar",
-      company: "Wipro",
-      role: "Cloud Engineer",
-      package: "₹8.0 LPA",
-      image: "https://i.pravatar.cc/100?img=3",
-    },
-    {
-      name: "Neha Patel",
-      company: "Accenture",
-      role: "QA Engineer",
-      package: "₹5.8 LPA",
-      image: "https://i.pravatar.cc/100?img=4",
-    },
+  const logos = [
+    { name: "JPMorgan Chase", src: jpmorgan },
+    { name: "Deloitte", src: deloitte },
+    { name: "EY", src: ey },
+    { name: "KPMG", src: kpmg },
+    { name: "PWC", src: pwc },
+    { name: "Accenture", src: accenture },
+    { name: "Grant Thornton", src: grantthornton },
+    { name: "RSM", src: rsm },
   ];
 
-  const [headingRef, headingVisible] = useScrollAnimation();
+  // Duplicate for seamless loop
+  const sliderLogos = [...logos, ...logos];
 
   return (
     <section
       id="placements"
-      className="bg-gray-50 py-16 md:py-20 lg:py-24"
+      className="bg-[#061A2F] py-20 md:py-32 overflow-hidden border-y-[12px] border-yellow-500"
     >
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-6 text-center">
 
         {/* ================= HEADING ================= */}
         <div
           ref={headingRef}
-          className={`mb-12 text-center animate-scroll ${
+          className={`mb-16 animate-scroll ${
             headingVisible ? "show" : ""
           }`}
         >
-          <span
+          <h2
             className="
-              inline-flex items-center justify-center
-              px-8 py-3
-              rounded-full
-              bg-gradient-to-r from-teal-600 to-teal-500
-              text-white font-semibold
-              shadow-[0_10px_30px_rgba(13,148,136,0.35)]
+              text-4xl md:text-6xl font-extrabold mb-6
+              bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent
+              w-fit mx-auto
             "
           >
             Placements
-          </span>
-
-          <p className="mt-4 max-w-2xl mx-auto text-gray-600">
-            Our students are placed in top IT companies with competitive
-            salary packages.
-          </p>
+          </h2>
         </div>
 
-        {/* ================= PLACEMENT CARDS ================= */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {placements.map((item, index) => {
-            const [cardRef, cardVisible] = useScrollAnimation();
+        {/* ================= LOGO SLIDER ================= */}
+        <div className="mb-20 relative w-full overflow-hidden mask-gradient-x">
+            {/* Gradient Masks for fade effect */}
+            <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#061A2F] to-transparent z-10"></div>
+            <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#061A2F] to-transparent z-10"></div>
 
-            return (
-              <div
-                key={index}
-                ref={cardRef}
-                className={`bg-white rounded-2xl p-6 text-center shadow-sm
-                  hover:shadow-lg transition-all duration-300
-                  animate-scroll ${cardVisible ? "show" : ""}`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                {/* Image */}
-                <div className="flex justify-center mb-4">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-20 h-20 rounded-full border-4 border-teal-100 object-cover"
-                  />
-                </div>
-
-                {/* Details */}
-                <h3 className="text-lg font-bold text-gray-900">
-                  {item.name}
-                </h3>
-
-                <p className="text-sm text-gray-500 mt-1">
-                  {item.role}
-                </p>
-
-                <p className="text-sm font-medium text-teal-600 mt-2">
-                  {item.company}
-                </p>
-
-                <div className="mt-4 inline-block px-3 py-1 text-sm font-semibold rounded-full bg-orange-100 text-orange-600">
-                  {item.package}
-                </div>
-              </div>
-            );
-          })}
+            <div className="animate-marquee flex gap-12 md:gap-20 items-center">
+                {sliderLogos.map((logo, index) => (
+                    <div key={index} className="flex-shrink-0 w-32 md:w-40 opacity-80 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0">
+                        <img 
+                          src={logo.src} 
+                          alt={logo.name} 
+                          className="w-full h-auto object-contain max-h-16"
+                        />
+                    </div>
+                ))}
+            </div>
         </div>
 
-        {/* ================= VIEW MORE ================= */}
-        <div className="mt-14 text-center">
+        {/* ================= ACTIONS ================= */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
           <button
-            onClick={() => navigate("/placements")}
+            onClick={() => navigate("/training-placements")}
             className="
+              group
               inline-flex items-center gap-2
-              px-8 py-3
+              px-8 py-4
               rounded-full
-              font-semibold text-white
-              bg-teal-600 hover:bg-teal-700
-              transition
+              font-bold text-white
+              bg-blue-600 hover:bg-blue-500
+              shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)]
+              transition-all duration-300
             "
           >
-            View More Placements →
+            Explore Placements
+            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
 

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Banner images
-import slide1 from "../../assets/images/herobanners/one.jpeg";
+import slide1 from "../../assets/images/herobanners/one.jpg";
 import slide2 from "../../assets/images/herobanners/two.jpeg";
 import slide3 from "../../assets/images/herobanners/three.jpeg";
 import slide4 from "../../assets/images/herobanners/four.jpeg";

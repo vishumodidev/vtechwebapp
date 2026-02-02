@@ -39,8 +39,8 @@ export default function AlumniSection() {
         ${sectionVisible ? "opacity-100" : "opacity-0"}
       `}
     >
-      <h2 className="text-3xl font-bold text-center mb-14 text-gray-900">
-        Alumni Success Stories
+      <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-14 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent w-fit mx-auto">
+        Our Alumni
       </h2>
 
       <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">

@@ -267,7 +267,7 @@ export default function RequestCallbackScheduler() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-xl transition duration-300 shadow-md hover:shadow-lg"
+              className="w-full bg-[#061A2F] hover:bg-[#061A2F] text-white font-bold py-4 rounded-xl transition duration-300 shadow-md hover:shadow-lg"
             >
               Request A Call Back
             </button>

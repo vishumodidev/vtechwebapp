@@ -7,7 +7,7 @@ export default function Footer() {
     <footer
       ref={footerRef}
       className={`
-        bg-blue-900 pt-20 pb-8 text-white
+        bg-[#061A2F] pt-20 pb-8 text-white border-t-[12px] border-yellow-500
         transition-all duration-1000 ease-out
         ${footerVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"}
       `}

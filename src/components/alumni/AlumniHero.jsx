@@ -1,11 +1,11 @@
 export default function AlumniHero() {
     return (
       <section id="alumni" className="py-20 bg-white text-center">
-        <span className="block text-sm font-semibold text-teal-600 mb-2">
+      <span className="block text-sm font-semibold text-blue-600 mb-2">
           WE ARE PROUD OF
         </span>
   
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">
+        <h1 className="text-4xl md:text-5xl font-extrabold pb-2 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent w-fit mx-auto">
           Our Alumni
         </h1>
   
