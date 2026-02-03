@@ -1,36 +1,47 @@
 import useScrollAnimation from "../common/useScrollAnimation";
-import { whyWeExist } from "../../data/aboutData";
+import { whyChooseUs, ourValues } from "../../data/aboutData";
 
 export default function WhyWeExist() {
   const [ref, visible] = useScrollAnimation();
 
   return (
-    <section className="py-16 bg-[#061A2F] border-y-[12px] border-yellow-500">
-      <div className="max-w-4xl mx-auto px-4">
+    <section className="py-20 bg-[#061A2F] border-y-[12px] border-yellow-500">
+      <div className="max-w-7xl mx-auto px-4">
 
-        {/* Scroll animation wrapper */}
         <div
           ref={ref}
-          className={`animate-scroll ${visible ? "show" : ""}`}
+          className={`grid md:grid-cols-2 gap-16 animate-scroll ${visible ? "show" : ""}`}
         >
-          {/* Heading */}
-          <h3 className="text-3xl md:text-4xl font-extrabold mb-6 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent w-fit">
-            Our Values
-          </h3>
+          {/* Why Choose Us */}
+          <div>
+            <h3 className="text-3xl md:text-4xl font-extrabold mb-8 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent w-fit">
+              Why Choose Us
+            </h3>
+            <div className="space-y-6">
+              {whyChooseUs.map((item, idx) => (
+                <div key={idx} className="bg-white/5 p-4 rounded-xl border border-white/10 hover:border-yellow-500/50 transition-colors">
+                  <h4 className="text-xl font-bold text-yellow-400 mb-2">{item.title}</h4>
+                  <p className="text-white/80 leading-relaxed">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
 
-          {/* List */}
-          <ul className="space-y-3">
-            {whyWeExist.map((item, idx) => (
-              <li
-                key={idx}
-                className="flex items-start gap-3 text-white/90"
-                style={{ transitionDelay: `${idx * 120}ms` }}
-              >
-                <span className="text-teal-600 font-bold">✓</span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
+          {/* Our Values */}
+          <div>
+            <h3 className="text-3xl md:text-4xl font-extrabold mb-8 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent w-fit">
+              Our Values
+            </h3>
+            <div className="space-y-6">
+              {ourValues.map((item, idx) => (
+                <div key={idx} className="bg-white/5 p-4 rounded-xl border border-white/10 hover:border-blue-500/50 transition-colors">
+                  <h4 className="text-xl font-bold text-blue-400 mb-2">{item.title}</h4>
+                  <p className="text-white/80 leading-relaxed">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
 
       </div>

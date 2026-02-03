@@ -40,7 +40,9 @@ export default function Header() {
         handleScroll(item.sectionId || "top");
       } else {
         navigate("/");
-        setTimeout(() => handleScroll(item.sectionId || "top"), 100);
+        [100, 300, 600, 1000].forEach(delay => {
+          setTimeout(() => handleScroll(item.sectionId || "top"), delay);
+        });
       }
     } else {
       navigate(item.path);
@@ -65,7 +67,7 @@ export default function Header() {
             <TopNav />
 
             {/* ================= CTA BUTTONS (NEW GRADIENT DESIGN) ================= */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
 
               {/* Requirement Button (Orange Gradient) */}
               <div className="relative">

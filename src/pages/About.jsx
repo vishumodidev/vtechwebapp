@@ -1,9 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import AboutStats from "../components/about/AboutStats";
 import MissionVision from "../components/about/MissionVision";
-import LeadershipMessage from "../components/about/LeadershipMessage";
 import WhyWeExist from "../components/about/WhyWeExist";
-import JourneyTimeline from "../components/about/JourneyTimeline";
+
 
 export default function About() {
   return (
@@ -31,9 +30,8 @@ export default function About() {
 
       <AboutStats />
       <MissionVision />
-      <LeadershipMessage />
       <WhyWeExist />
-      <JourneyTimeline />
+
     </>
   );
 }

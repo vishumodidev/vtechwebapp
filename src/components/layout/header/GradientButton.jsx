@@ -11,7 +11,7 @@ export default function GradientButton({
   return (
     <motion.button
       onClick={onClick}
-      className={`relative group flex items-center justify-between pl-1 pr-6 py-1.5 focus:outline-none overflow-hidden transition-all duration-300 transform active:scale-95 ${className}`}
+      className={`relative group flex items-center justify-between pl-1 pr-4 py-1 focus:outline-none overflow-hidden transition-all duration-300 transform active:scale-95 ${className}`}
       style={{
         borderRadius: "50px 50px 50px 8px", // Teardrop / Leaf shape pointing bottom-left
       }}
@@ -26,12 +26,12 @@ export default function GradientButton({
       <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-white skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
 
       {/* Icon Circle */}
-      <div className="relative z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center text-gray-700 shadow-md transform group-hover:rotate-12 transition-transform duration-300">
+      <div className="relative z-10 w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-700 shadow-md transform group-hover:rotate-12 transition-transform duration-300">
         {icon}
       </div>
 
       {/* Text */}
-      <span className="relative z-10 ml-3 text-white font-bold text-sm tracking-wide uppercase whitespace-nowrap">
+      <span className="relative z-10 ml-2 text-white font-bold text-xs tracking-wide uppercase whitespace-nowrap">
         {text}
       </span>
 

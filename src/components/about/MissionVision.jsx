@@ -20,9 +20,17 @@ export default function MissionVision() {
             <h3 className="text-3xl md:text-4xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent w-fit">
               Mission
             </h3>
-            <p className="text-white/90 leading-relaxed">
-              {missionVision.mission}
+            <p className="text-white/90 leading-relaxed italic mb-4">
+              "{missionVision.mission.statement}"
             </p>
+            <ul className="space-y-2 text-white/80">
+              {missionVision.mission.points.map((point, idx) => (
+                <li key={idx} className="flex gap-2">
+                  <span className="text-yellow-500">•</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Vision */}
@@ -30,9 +38,17 @@ export default function MissionVision() {
             <h3 className="text-3xl md:text-4xl font-extrabold mb-4 bg-gradient-to-r from-blue-600 via-green-500 to-yellow-500 bg-clip-text text-transparent w-fit">
               Vision
             </h3>
-            <p className="text-white/90 leading-relaxed">
-              {missionVision.vision}
+            <p className="text-white/90 leading-relaxed italic mb-4">
+              "{missionVision.vision.statement}"
             </p>
+            <ul className="space-y-2 text-white/80">
+              {missionVision.vision.points.map((point, idx) => (
+                <li key={idx} className="flex gap-2">
+                  <span className="text-yellow-500">•</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 

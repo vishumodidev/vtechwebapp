@@ -50,11 +50,18 @@ export default function Hero() {
   const particleCount = isMobile ? 15 : 30;
   const particles = useMemo(() => generateParticles(particleCount), [particleCount]);
 
+  const [direction, setDirection] = useState(1);
+
+  const paginate = (newDirection) => {
+    setDirection(newDirection);
+    setCurrent((prev) => (prev + newDirection + slides.length) % slides.length);
+  };
+  
   // Auto-slide logic
   useEffect(() => {
     const intervalTime = isMobile ? 5000 : 6000;
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
+      paginate(1);
     }, intervalTime);
     return () => clearInterval(timer);
   }, [isMobile]);
@@ -72,19 +79,35 @@ export default function Hero() {
     // Threshold for swipe
     if (Math.abs(diff) > 75) {
       if (diff > 0) {
-        // Swipe Left -> Next
-        setCurrent((prev) => (prev + 1) % slides.length);
+        paginate(1);
       } else {
-        // Swipe Right -> Prev
-        setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+        paginate(-1); // Swipe Right -> Prev
       }
     }
     setTouchStart(null);
   };
 
   /* ================= HELPERS ================= */
-  const nextSlide = useCallback(() => setCurrent((p) => (p + 1) % slides.length), []);
-  const prevSlide = useCallback(() => setCurrent((p) => (p - 1 + slides.length) % slides.length), []);
+  const nextSlide = useCallback(() => paginate(1), []);
+  const prevSlide = useCallback(() => paginate(-1), []);
+  
+  const variants = {
+    enter: (direction) => ({
+      x: direction > 0 ? "100%" : "-100%",
+      opacity: 0,
+       zIndex: 0
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction) => ({
+      zIndex: 0,
+      x: direction < 0 ? "100%" : "-100%",
+      opacity: 0
+    })
+  };
 
   return (
     <section 
@@ -92,22 +115,24 @@ export default function Hero() {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <AnimatePresence mode="wait">
+      <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={current}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
+          custom={direction}
+          variants={variants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{
+            x: { type: "spring", stiffness: 300, damping: 30 },
+            opacity: { duration: 0.2 }
+          }}
           className="absolute inset-0"
         >
           {/* Background Image */}
-          <motion.img
+          <img
             src={slides[current]}
             alt={`Hero Banner ${current + 1}`}
-            initial={{ scale: 1 }}
-            animate={{ scale: 1.05 }} // Subtle Ken Burns
-            transition={{ duration: 6, ease: "linear" }}
             className="w-full h-full object-cover object-center"
             loading="lazy"
           />

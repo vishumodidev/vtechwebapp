@@ -1,4 +1,4 @@
-import CountUp from "react-countup";
+
 import useScrollAnimation from "../common/useScrollAnimation";
 
 export default function AboutStats() {
@@ -26,11 +26,7 @@ export default function AboutStats() {
           ref={ref}
           className={`animate-scroll ${visible ? "show" : ""}`}
         >
-          <p className="max-w-4xl mx-auto text-lg md:text-xl text-gray-700 leading-relaxed mb-14">
-            We are passionate about empowering learners worldwide with
-            high-quality, accessible & engaging education. Our mission is
-            offering a diverse range of courses.
-          </p>
+
 
           {/* OUR STORY */}
           <div className="max-w-4xl mx-auto text-left mt-12 pl-4 md:pl-0">

@@ -22,7 +22,6 @@ export default function TopNav() {
 
   const handleNavClick = (item) => {
     // List of keys that are HOME SECTIONS, not separate pages
-    // (Or items we want to scroll to if we are on Home)
     const homeSections = ["services", "faq", "placements"]; 
     
     // If it's a home section OR specifically the Home link
@@ -31,7 +30,10 @@ export default function TopNav() {
         handleScroll(item.sectionId || "top");
       } else {
         navigate("/");
-        setTimeout(() => handleScroll(item.sectionId || "top"), 100);
+        // Attempt scrolling multiple times to allow for page load/rendering
+        [100, 300, 600, 1000].forEach(delay => {
+          setTimeout(() => handleScroll(item.sectionId || "top"), delay);
+        });
       }
     } else {
       // Otherwise, regular navigation (About, Courses, Contact, Alumni, etc.)
