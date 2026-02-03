@@ -22,6 +22,8 @@ import TrainingPlacements from "./pages/TrainingPlacements";
 import CorporateTraining from "./pages/CorporateTraining";
 import StaffingSolutions from "./pages/StaffingSolutions";
 import UpskillingPrograms from "./pages/UpskillingPrograms";
+import Announcements from "./pages/Announcements";
+import Notices from "./pages/Notices";
 
 function App() {
   return (
@@ -58,6 +60,8 @@ function App() {
         <Route path="/corporate-training" element={<CorporateTraining />} />
         <Route path="/staffing-solutions" element={<StaffingSolutions />} />
         <Route path="/upskilling-programs" element={<UpskillingPrograms />} />
+        <Route path="/announcements" element={<Announcements />} />
+        <Route path="/notices" element={<Notices />} />
 
 
         {/* 🔥 CATCH-ALL (Unknown paths) */}

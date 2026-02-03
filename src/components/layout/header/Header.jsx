@@ -6,7 +6,7 @@ import { navItems } from "../../../data/navigation";
 
 import GradientButton from "./GradientButton";
 
-import { MessageSquare, Bell, Send, UserPlus, ChevronDown, ChevronUp } from "lucide-react"; // Import Lucide icons
+import { MessageSquare, FileText, UserPlus, ChevronDown, ChevronUp } from "lucide-react"; // Import Lucide icons
 import { courses } from "../../../data/coursesData";
 
 export default function Header() {
@@ -67,10 +67,10 @@ export default function Header() {
             {/* ================= CTA BUTTONS (NEW GRADIENT DESIGN) ================= */}
             <div className="flex items-center gap-3">
 
-              {/* Admissions Button (Orange Gradient) */}
+              {/* Requirement Button (Orange Gradient) */}
               <div className="relative">
                 <GradientButton 
-                  text="Requirements" 
+                  text="Requirement" 
                   icon={<UserPlus size={18} className="text-orange-500" />}
                   fromColor="from-orange-400"
                   toColor="to-yellow-400"
@@ -86,27 +86,32 @@ export default function Header() {
                       Requirement 2026
                     </button>
                     <div className="h-px bg-gray-100 mx-2"></div>
-                  
+                    <button
+                      onClick={() => navigate("/contact")}
+                      className="block w-full px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-orange-50 hover:text-orange-600 text-left transition-colors"
+                    >
+                      Requirement 2025
+                    </button>
                   </div>
                 )}
               </div>
 
               {/* Announcement Button (Blue/Purple Gradient) */}
               <GradientButton 
-                text="Announcements" 
-                icon={<Bell size={18} className="text-blue-500" />}
+                text="Announcement" 
+                icon={<MessageSquare size={18} className="text-blue-500" />}
                 fromColor="from-blue-400"
                 toColor="to-indigo-500"
                 onClick={() => navigate("/announcements")}
               />
 
-              {/* Apply Now Button (Pink/Rose Gradient) */}
+              {/* Notice Button (Red/Pink Gradient) */}
               <GradientButton 
-                text="Apply Now" 
-                icon={<Send size={18} className="text-rose-500" />}
+                text="Notice" 
+                icon={<FileText size={18} className="text-rose-500" />}
                 fromColor="from-rose-400"
                 toColor="to-pink-500"
-                onClick={() => navigate("/apply")}
+                onClick={() => navigate("/notices")}
               />
 
             </div>
@@ -175,10 +180,10 @@ export default function Header() {
           {/* ================= MOBILE CTA BUTTONS ================= */}
           <div className="pt-4 space-y-3 border-t border-gray-100">
             
-            {/* Admissions */}
+            {/* Requirement */}
             <div className="relative">
               <GradientButton 
-                text="Admissions" 
+                text="Requirement" 
                 icon={<UserPlus size={18} className="text-orange-100" />}
                 fromColor="from-orange-400"
                 toColor="to-yellow-400"
@@ -191,35 +196,35 @@ export default function Header() {
                      onClick={() => { navigate("/contact"); setMenuOpen(false); }}
                      className="block w-full px-3 py-2 text-sm font-medium text-gray-700 hover:bg-white hover:text-orange-600 rounded-lg transition-colors text-center shadow-sm"
                    >
-                     Admissions 2026
+                     Requirement 2026
                    </button>
                    <button
                      onClick={() => { navigate("/contact"); setMenuOpen(false); }}
                      className="block w-full px-3 py-2 text-sm font-medium text-gray-700 hover:bg-white hover:text-orange-600 rounded-lg transition-colors text-center shadow-sm"
                    >
-                     Admissions 2025
+                     Requirement 2025
                    </button>
                  </div>
               )}
             </div>
 
-            {/* Notices */}
+            {/* Announcement */}
             <GradientButton 
-              text="Notices" 
-              icon={<Bell size={18} className="text-blue-100" />}
+              text="Announcement" 
+              icon={<MessageSquare size={18} className="text-blue-100" />}
               fromColor="from-blue-400"
               toColor="to-indigo-500"
               onClick={() => { navigate("/announcements"); setMenuOpen(false); }}
               className="w-full justify-center"
             />
 
-            {/* Apply Now */}
+            {/* Notice */}
             <GradientButton 
-              text="Apply Now" 
-              icon={<Send size={18} className="text-rose-100" />}
+              text="Notice" 
+              icon={<FileText size={18} className="text-rose-100" />}
               fromColor="from-rose-400"
               toColor="to-pink-500"
-              onClick={() => { navigate("/apply"); setMenuOpen(false); }}
+              onClick={() => { navigate("/notices"); setMenuOpen(false); }}
               className="w-full justify-center"
             />
           </div>
