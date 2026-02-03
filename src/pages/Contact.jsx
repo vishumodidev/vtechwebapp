@@ -14,7 +14,12 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Contact Form Submitted:", formData);
-    alert("Thank you for reaching out! We will get back to you shortly.");
+    
+    import("../utils/whatsapp").then(({ sendWhatsAppMessage }) => {
+      sendWhatsAppMessage(formData, "New Contact Page Inquiry");
+    });
+
+    alert("Thank you for reaching out! Redirecting to WhatsApp...");
     setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
   };
 

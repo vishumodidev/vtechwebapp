@@ -128,14 +128,24 @@ export default function RequestCallbackScheduler() {
       return;
     }
 
-    const payload = {
-      ...form,
-      date: selectedDate.toISOString().split('T')[0],
-      time: selectedTime,
-      timestamp: new Date().toISOString(),
+    const formattedDateStr = selectedDate.toLocaleDateString("en-IN", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "numeric"
+    });
+
+    const whatsappData = {
+      Name: form.name,
+      Phone: form.phone,
+      Email: form.email,
+      "Requested Date": formattedDateStr,
+      "Requested Time": selectedTime
     };
 
-    console.log("FINAL SCHEDULING DATA:", payload);
+    import("../../utils/whatsapp").then(({ sendWhatsAppMessage }) => {
+      sendWhatsAppMessage(whatsappData, "New Course Callback Request");
+    });
 
     // Show success message with details
     const formattedDate = selectedDate.toLocaleDateString("en-IN", {
@@ -145,7 +155,7 @@ export default function RequestCallbackScheduler() {
       year: "numeric"
     });
     
-    alert(`✅ Call Scheduled Successfully!\n\n📅 Date: ${formattedDate}\n⏰ Time: ${selectedTime}\n👤 Name: ${form.name}\n📞 Phone: ${form.phone}\n📧 Email: ${form.email}\n\nWe'll call you at ${selectedTime} on ${formattedDate}.`);
+    alert(`✅ Call Scheduled Successfully!\n\n📅 Date: ${formattedDate}\n⏰ Time: ${selectedTime}\n👤 Name: ${form.name}\n\nRedirecting to WhatsApp to confirm...`);
     
     // Optional: Reset form after successful booking
     // resetForm();

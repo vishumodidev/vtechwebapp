@@ -71,8 +71,19 @@ export default function CourseOffer() {
       setStep(2);
     } else {
       console.log("Final Form submitted:", formData);
-      // Add API call here
-      alert("Booking Confirmed!");
+      
+      // Send to WhatsApp
+      import("../../utils/whatsapp").then(({ sendWhatsAppMessage }) => {
+        sendWhatsAppMessage({
+          Name: formData.name,
+          Phone: formData.phone,
+          Email: formData.email,
+          Date: formData.date,
+          Time: formData.time
+        }, "New Course Counseling Request (Home Page)");
+      });
+
+      alert("Booking Confirmed! Redirecting to WhatsApp...");
       
       // Reset form and go back to Step 1
       setStep(1);
